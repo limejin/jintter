@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import styled from '@emotion/styled';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,7 +20,9 @@ const Jweet = ({ jweetObj, isOwner }) => {
 
     if (ok) {
       const JweetTextRef = doc(dbService, 'jweets', `${jweetObj.id}`);
+
       await deleteDoc(JweetTextRef);
+
       if (jweetObj.attachmentUrl !== '') {
         await deleteObject(ref(storageService, jweetObj.attachmentUrl));
       }
@@ -44,6 +47,7 @@ const Jweet = ({ jweetObj, isOwner }) => {
     const {
       target: { value },
     } = event;
+
     setNewJweet(value);
   };
 
@@ -60,10 +64,10 @@ const Jweet = ({ jweetObj, isOwner }) => {
               required
               autoFocus
             />
-            <input type="submit" value="Update jweet" css={formBtn} />
+            <input type="submit" value="Update jweet" css={formButton} />
           </FormEdit>
 
-          <span onClick={toggleEditing} css={cancelBtn}>
+          <span onClick={toggleEditing} css={cancelButton}>
             Cancel
           </span>
         </>
@@ -95,14 +99,14 @@ export default Jweet;
 
 const JweetContainer = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
+  position: relative;
   width: 100%;
   max-width: 320px;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #fff;
   color: rgba(0, 0, 0, 0.8);
 `;
 
@@ -140,7 +144,17 @@ const FormInput = styled.input`
   text-align: center;
 `;
 
-const formBtn = css`
+const JweetActions = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
+const Pointer = styled.span`
+  cursor: pointer;
+`;
+
+const formButton = css`
   width: 100%;
   padding: 7px 20px;
   border-radius: 20px;
@@ -150,22 +164,12 @@ const formBtn = css`
   text-align: center;
 `;
 
-const cancelBtn = css`
+const cancelButton = css`
   width: 100%;
   padding: 7px 20px;
   border-radius: 20px;
   background-color: tomato;
-  cursor: pointer;
   text-align: center;
   color: white;
-`;
-
-const JweetActions = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
-
-const Pointer = styled.span`
   cursor: pointer;
 `;

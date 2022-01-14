@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -26,8 +28,6 @@ const NavListigation = ({ userObj }) => {
   );
 };
 
-export default NavListigation;
-
 const Container = styled.ul`
   display: 'flex';
   justify-content: 'center';
@@ -49,3 +49,5 @@ const LinkToProfile = css`
 const UserEmail = styled.span`
   margin-top: 10px;
 `;
+
+export default NavListigation;

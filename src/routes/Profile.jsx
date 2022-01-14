@@ -1,9 +1,11 @@
+import React, { useState } from 'react';
+
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { React, useState } from 'react';
 
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { dbService, authService } from 'fbase';
 import { updateEmail } from 'firebase/auth';
+
 import styled from '@emotion/styled';
 
 const Profile = ({ refreshUser, userObj }) => {
@@ -19,11 +21,13 @@ const Profile = ({ refreshUser, userObj }) => {
     const {
       target: { value },
     } = event;
+
     setNewEmail(value);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
     if (newEmail !== '') {
       if (userObj.email !== newEmail) {
         await updateEmail(authService.currentUser, newEmail)
@@ -32,15 +36,6 @@ const Profile = ({ refreshUser, userObj }) => {
         refreshUser();
       }
     }
-  };
-
-  const getMyJweets = async () => {
-    const q = query(
-      collection(dbService, 'jweets'),
-      where('creatorId', '==', `${userObj.uid}`),
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {});
   };
 
   return (
@@ -56,7 +51,6 @@ const Profile = ({ refreshUser, userObj }) => {
           />
           <ProfileFormButton type="submit" value="Update Profile" />
         </ProfileForm>
-
         <LogOutButton
           className="formBtn cancelBtn logOut"
           onClick={onLogOutClick}
@@ -67,7 +61,6 @@ const Profile = ({ refreshUser, userObj }) => {
     </>
   );
 };
-export default Profile;
 
 const Container = styled.div`
   display: flex;
@@ -90,8 +83,8 @@ const ProfileFormInput = styled.input`
   border-radius: 20px;
   border: 1px solid black;
   background-color: white;
-  text-align: center;
   color: black;
+  text-align: center;
 `;
 
 const ProfileFormButton = styled.input`
@@ -100,9 +93,9 @@ const ProfileFormButton = styled.input`
   padding: 7px 20px;
   border-radius: 20px;
   background-color: #04aaff;
-  cursor: pointer;
-  text-align: center;
   color: white;
+  text-align: center;
+  cursor: pointer;
 `;
 
 const LogOutButton = styled.span`
@@ -112,7 +105,9 @@ const LogOutButton = styled.span`
   padding: 7px 20px;
   border-radius: 20px;
   background-color: tomato;
-  cursor: pointer;
-  text-align: center;
   color: white;
+  text-align: center;
+  cursor: pointer;
 `;
+
+export default Profile;

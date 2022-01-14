@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   BrowserRouter as Router,
   Redirect,
@@ -6,9 +7,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
+import { Global } from '@emotion/react';
+
+import reset from 'components/Reset';
 
 import Profile from 'routes/Profile';
 import Auth from '../routes/Auth';
@@ -18,6 +19,7 @@ import Navigation from './Navigation';
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
+      <Global styles={reset} />
       {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (

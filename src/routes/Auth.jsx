@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTwitter,
-  faGoogle,
-  faGithub,
-} from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import {
   getAuth,
@@ -19,12 +16,14 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [newAccount, setNewAccount] = useState(true);
+
   const toggleAccount = () => setNewAccount((prev) => !prev);
 
   const onChange = (event) => {
     const {
       target: { name, value },
     } = event;
+
     if (name === 'email') {
       setEmail(value);
     } else if (name === 'password') {
@@ -34,14 +33,15 @@ const Auth = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
     const auth = getAuth();
+
     try {
       let data;
-      if (newAccount) {
-        data = await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        data = await signInWithEmailAndPassword(auth, email, password);
-      }
+
+      newAccount
+        ? (data = await createUserWithEmailAndPassword(auth, email, password))
+        : (data = await signInWithEmailAndPassword(auth, email, password));
     } catch (error) {
       setError(error.message);
     }
@@ -73,6 +73,7 @@ const Auth = () => {
             value={password}
             onChange={onChange}
           />
+
           <AuthSubmit
             type="submit"
             value={newAccount ? 'Create Account' : 'Log In'}
@@ -87,64 +88,62 @@ const Auth = () => {
   );
 };
 
-export default Auth;
-
 const AuthContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 `;
 
 const Container = styled.form`
-  width: 100%;
-  max-width: 320px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 320px;
 `;
 
 const AuthInput = styled.input`
-  max-width: 320px;
   width: 100%;
+  max-width: 320px;
+  margin-bottom: 10px;
   padding: 10px;
   border-radius: 30px;
+  box-sizing: border-box;
   background-color: rgba(255, 255, 255, 1);
-  margin-bottom: 10px;
   font-size: 12px;
   color: black;
-  box-sizing: content-box;
 `;
 
 const AuthSubmit = styled.input`
-  max-width: 320px;
   width: 100%;
+  max-width: 320px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   padding: 10px;
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 1);
-  margin-bottom: 10px;
+  background-color: #04aafe;
   font-size: 12px;
-
-  text-align: center;
-  background: #04aaff;
   color: white;
-  margin-top: 10px;
+  text-align: center;
   cursor: pointer;
 `;
 
 const AuthError = styled.span`
-  color: tomato;
-  text-align: center;
   font-weight: 500;
   font-size: 12px;
+  color: tomato;
+  text-align: center;
 `;
 
 const AuthSwitch = styled.span`
-  color: #04aaff;
-  cursor: pointer;
+  display: block;
   margin-top: 10px;
   margin-bottom: 50px;
-  display: block;
   font-size: 12px;
+  color: #04aaff;
   text-decoration: underline;
+  cursor: pointer;
 `;
+
+export default Auth;

@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import styled from '@emotion/styled';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { storageService, dbService } from 'fbase';
 import { ref, uploadString, getDownloadURL } from '@firebase/storage';
@@ -35,6 +36,7 @@ const JweetFactory = ({ userObj }) => {
 
       attachmentUrl = await getDownloadURL(uploadFile.ref);
     }
+
     const docRef = await addDoc(collection(dbService, 'jweets'), {
       text: jweet,
       createdAt: Date.now(),
@@ -54,7 +56,6 @@ const JweetFactory = ({ userObj }) => {
     const {
       target: { files },
     } = event;
-
     const theFIle = files[0];
     const reader = new FileReader();
 
@@ -62,6 +63,7 @@ const JweetFactory = ({ userObj }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
+
       setAttachment(result);
     };
 
@@ -137,36 +139,31 @@ const FactoryInput = styled.input`
   flex-grow: 1;
   height: 40px;
   padding: 0px 20px;
-  color: white;
   border: 1px solid #04aaff;
   border-radius: 20px;
-  font-weight: 500;
   font-size: 12px;
+  font-weight: 500;
+  color: white;
 `;
 
 const FactoryInputArrow = styled.input`
   position: absolute;
   right: 0;
-  background-color: #04aaff;
   height: 40px;
   width: 40px;
   padding: 10px 0px;
-  text-align: center;
   border-radius: 20px;
-  color: white;
   box-sizing: border-box;
-`;
-
-const factoryInput__label = css`
-  cursor: pointer;
-  color: #04aaff;
+  background-color: #04aaff;
+  color: white;
+  text-align: center;
 `;
 
 const Add = styled.span`
-  color: #04aaff;
-  cursor: pointer;
   margin-right: 10px;
   font-size: 12px;
+  color: #04aaff;
+  cursor: pointer;
 `;
 
 const AttachInput = styled.input`
@@ -180,17 +177,23 @@ const FactoryFormAttachment = styled.div`
 `;
 
 const FactoryFormAttachmentImage = styled.img`
-  height: 80px;
   width: 80px;
+  height: 80px;
   border-radius: 40px;
   background-image: attachment;
 `;
 const FactoryFormClear = styled.div`
   color: #04aaff;
-  cursor: pointer;
   text-align: center;
+  cursor: pointer;
 `;
+
 const RemoveSpan = styled.span`
   margin-right: 10px;
   font-size: 12px;
+`;
+
+const factoryInput__label = css`
+  color: #04aaff;
+  cursor: pointer;
 `;
