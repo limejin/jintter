@@ -1,21 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navigation = ({ userObj }) => {
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+const NavListigation = ({ userObj }) => {
   return (
     <>
       <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/profile">{userObj.email}'s Profile</Link>
-          </li>
-        </ul>
+        <Container>
+          <Link to="/" css={LinkToHome}>
+            <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size="2x" />
+          </Link>
+          <Link to="/profile" css={LinkToProfile}>
+            <FontAwesomeIcon icon={faUser} color={'#04AAFF'} size="2x" />
+            <UserEmail> {userObj.email}'s Profile</UserEmail>
+          </Link>
+        </Container>
       </nav>
     </>
   );
 };
 
-export default Navigation;
+export default NavListigation;
+
+const Container = styled.ul`
+  display: 'flex';
+  justify-content: 'center';
+  margin-top: 50px;
+`;
+
+const LinkToHome = css`
+  margin-right: 10px;
+`;
+
+const LinkToProfile = css`
+  display: 'flex';
+  flex-direction: 'column';
+  margin-left: 10px;
+  align-items: 'center';
+  font-size: 12px;
+`;
+
+const UserEmail = styled.span`
+  margin-top: 10px;
+`;

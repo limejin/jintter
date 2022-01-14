@@ -1,6 +1,10 @@
 import Jweet from 'components/Jweet';
 import { dbService } from 'fbase';
 
+import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
 import {
   collection,
   getDocs,
@@ -8,7 +12,6 @@ import {
   onSnapshot,
   orderBy,
 } from 'firebase/firestore';
-
 import React, { useState, useEffect } from 'react';
 import JweetFactory from 'components/JweetFactory';
 
@@ -45,9 +48,9 @@ const Home = ({ userObj }) => {
 
   return (
     <>
-      <div>
+      <Container>
         <JweetFactory userObj={userObj} />
-        <div>
+        <JweetContainer>
           {jweets.map((jweet) => (
             <Jweet
               key={jweet.id}
@@ -55,9 +58,20 @@ const Home = ({ userObj }) => {
               isOwner={jweet.creatorId === userObj.uid}
             />
           ))}
-        </div>
-      </div>
+        </JweetContainer>
+      </Container>
     </>
   );
 };
 export default Home;
+
+const Container = styled.div`
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const JweetContainer = styled.div`
+  margintop: 30;
+`;

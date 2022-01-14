@@ -5,8 +5,12 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Profile from 'routes/Profile';
 
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import Profile from 'routes/Profile';
 import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 import Navigation from './Navigation';
@@ -24,7 +28,6 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
             <Route exact path="/profile">
               <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
-            {/* <Route path="/">Not Found</Route> */}
           </>
         ) : (
           <>
